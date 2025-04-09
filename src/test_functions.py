@@ -1,5 +1,5 @@
 import unittest
-from functions import split_nodes_delimiter
+from functions import split_nodes_delimiter, extract_markdown_images
 from textnode import TextNode, TextType
 
 
@@ -67,3 +67,33 @@ class SplitNodesDelimiterTest(unittest.TestCase):
                 TextNode("Non-text node", TextType.BOLD)
             ]
         )
+
+class ExtractMarkdownLinks(unittest.TestCase):
+    def test_extraction_https(self):
+        text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
+        result = extract_markdown_images(text)
+        self.assertEqual(
+            result,
+            [("rick roll", "https://i.imgur.com/aKaOqIh.gif"), ("obi wan", "https://i.imgur.com/fJRm4Vk.jpeg")]
+        )
+    def test_extraction_http(self):
+        text = "This is text with a ![rick roll](http://i.imgur.com/aKaOqIh.gif) and ![obi wan](http://i.imgur.com/fJRm4Vk.jpeg)"
+        result = extract_markdown_images(text)
+        self.assertEqual(
+            result,
+            [("rick roll", "http://i.imgur.com/aKaOqIh.gif"), ("obi wan", "http://i.imgur.com/fJRm4Vk.jpeg")]
+        )  
+    def test_extraction_multiple_items(self):
+        text = "This is text with a ![rick roll](http://i.imgur.com/aKaOqIh.gif) and ![obi wan](http://i.imgur.com/fJRm4Vk.jpeg) and some more ![more and more and more](https://google.com/more_more_more)"
+        result = extract_markdown_images(text)
+        self.assertEqual(
+            result,
+            [("rick roll", "http://i.imgur.com/aKaOqIh.gif"), ("obi wan", "http://i.imgur.com/fJRm4Vk.jpeg"), ("more and more and more", "https://google.com/more_more_more")]
+        )
+
+class ExtractMarkdownImages(unittest.TestCase):
+    def test_extract_markdown_images(self):
+        matches = extract_markdown_images(
+            "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png)"
+        )
+        self.assertListEqual([("image", "https://i.imgur.com/zjjcJKZ.png")], matches)
