@@ -37,3 +37,9 @@ def extract_markdown_links(text):
     anchor_text = re.findall(r"\[(.*?)]")
     url = re.findall(r"\((https?:\/\/.*?)\)", text)
     return list(zip(anchor_text, url))
+
+def split_nodes_image(old_nodes):
+    new_nodes = []
+    for node in old_nodes:
+        if node.TextType != TextType.TEXT:
+            new_nodes.append(node)
