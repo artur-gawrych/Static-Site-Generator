@@ -1,5 +1,6 @@
 from textnode import *
 from htmlnode import HTMLNode
+from functions import *
 
 
 def main():
@@ -16,5 +17,15 @@ def main():
     print(f"TEXT NODE TEST: {test_TextNode}")
     print(f"HTML NODE TEST: {test_HTMLNode}")
     print(f"{test_HTMLNode.props_to_html()}")
+
+
+    node = TextNode(
+        "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png) and another ![second image](https://i.imgur.com/3elNhQu.png)",
+        TextType.TEXT,
+    )
+
+    new_nodes = split_nodes_image([node])
+
+    print(new_nodes)
 
 main()
