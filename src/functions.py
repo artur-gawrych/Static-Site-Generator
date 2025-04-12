@@ -29,19 +29,26 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
     return new_nodes
 
 def extract_markdown_images(text):
-    alt_text = re.findall(r"!\[(.*?)]", text)
-    url = re.findall(r"\((https?:\/\/.*?)\)", text)
-    return list(zip(alt_text, url))
-    
+    pattern = r"!\[([^\[\]]*)\]\(([^\(\)]*)\)"
+    matches = re.findall(pattern, text)
+    return matches
+
 def extract_markdown_links(text):
-    anchor_text = re.findall(r"\[(.*?)]")
-    url = re.findall(r"\((https?:\/\/.*?)\)", text)
-    return list(zip(anchor_text, url))
+    pattern = r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
+    matches = re.findall(pattern, text)
+    return matches
 
 def split_nodes_image(old_nodes):
     new_nodes = []
     for node in old_nodes:
-        image_nodes = extract_markdown_images(node)
-        for image_node in image_nodes:
-            new_nodes.append(TextNode(image_node[0],TextType.LINK, image_node[1]))
-    return new_nodes
+        images = extract_markdown_images(node.text)
+        if images == -1:
+            return old_nodes
+        else:
+            for image in images:
+                sections = node.text.split(f"![{image[0]}]({image[1]})", 1)
+                # new_nodes.append(TextNode(image[0], TextType.IMAGE, image[1]))
+            print(len(sections))
+            for sec in sections:
+                print(f"SEC: {sec}")
+    return sections
