@@ -26,6 +26,15 @@ def main():
 
     new_nodes = split_nodes_image([node])
 
+    node = TextNode(
+    "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
+    TextType.TEXT,
+    )
+
+    new_nodes_image_links = split_nodes_link([node])
+
     print(new_nodes)
+
+    print(new_nodes_image_links)
 
 main()
