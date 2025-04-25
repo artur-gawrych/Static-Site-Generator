@@ -101,3 +101,9 @@ def split_nodes_link(old_nodes):
             new_nodes.append(TextNode(remaining_text, TextType.TEXT))
     return new_nodes
 
+def text_to_textnodes(text):
+    print(text)
+    new_nodes = []
+    bold = split_nodes_delimiter(text, "**", TextType.TEXT)
+    new_nodes.append(bold)
+    return new_nodes

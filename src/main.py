@@ -37,4 +37,12 @@ def main():
 
     print(new_nodes_image_links)
 
+    print("\nTEST TEXT TO TEXTNODES\n**********************\n")
+
+    text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+
+    html_nodes = text_node_to_html_node(text)
+
+    print(html_nodes)
+
 main()
