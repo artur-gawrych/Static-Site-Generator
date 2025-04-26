@@ -39,10 +39,16 @@ def main():
 
     print("\nTEST TEXT TO TEXTNODES\n**********************\n")
 
-    text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+    text_node = TextNode("This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)", TextType.TEXT)
 
-    html_nodes = text_node_to_html_node(text)
+    image_node = split_nodes_image([text_node])
+    link_node = split_nodes_link(image_node)
+    bold = split_nodes_delimiter(link_node,"**", TextType.BOLD)
+    italic = split_nodes_delimiter(bold, "_", TextType.ITALIC)
+    code = split_nodes_delimiter(italic, "`", TextType.CODE)
 
-    print(html_nodes)
+    print(code)
 
+
+    
 main()
