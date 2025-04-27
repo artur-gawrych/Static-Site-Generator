@@ -1,6 +1,6 @@
 from textnode import *
 from htmlnode import HTMLNode
-from functions import *
+from inline_markdown import *
 
 
 def main():
