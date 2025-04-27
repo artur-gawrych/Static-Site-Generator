@@ -102,12 +102,10 @@ def split_nodes_link(old_nodes):
     return new_nodes
 
 def text_to_textnodes(text):
-    new_nodes = []
     text_node = TextNode(text, TextType.TEXT)
     image_node = split_nodes_image([text_node])
     link_node = split_nodes_link(image_node)
     bold = split_nodes_delimiter(link_node,"**", TextType.BOLD)
     italic = split_nodes_delimiter(bold, "_", TextType.ITALIC)
     code = split_nodes_delimiter(italic, "`", TextType.CODE)
-    new_nodes.append(code)
-    return new_nodes
+    return code
