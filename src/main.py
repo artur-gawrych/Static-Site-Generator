@@ -61,6 +61,10 @@ def main():
 
     print(blocks)
     
+    heading_text = "# This is Heading 1"
 
-    
+    heading = block_to_block_type(heading_text)
+
+    print(heading)
+
 main()

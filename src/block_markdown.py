@@ -23,5 +23,19 @@ class BlockType(Enum):
 
 def block_to_block_type(block):
     heading = re.search("^#{1,6}\s", block)
+    code = re.search("^`{3}.*?`{3}$", block)
+    quote = re.search("^>", block)
+    unordered_list = re.search("^-\s", block)
+    ordered_list = re.search("^\d\.\s", block)
     if heading:
-        return BlockType.heading
+        return BlockType.HEADING
+    if code:
+        return BlockType.CODE
+    if quote:
+        return BlockType.QUOTE
+    if unordered_list:
+        return BlockType.UNORDERED_LIST
+    if ordered_list:
+        return BlockType.ORDERED_LIST
+    return BlockType.PARAGRAPH
+    
