@@ -97,3 +97,48 @@ class TestBlockToBlockTypes(unittest.TestCase):
         paragraph = "This is just a paragraph"
         block_type = block_to_block_type(paragraph)
         self.assertEqual(block_type, BlockType.PARAGRAPH)
+
+    def test_ordered_list_with_wrong_start_number(self):
+        text = "2. Item one\n3. Item two\n4. Item three"
+        block_type = block_to_block_type(text)
+        self.assertEqual(block_type, BlockType.PARAGRAPH)
+
+    def test_ordered_list_with_gap(self):
+        text = "1. Item one\n3. Item two\n4. Item three"
+        block_type = block_to_block_type(text)
+        self.assertEqual(block_type, BlockType.PARAGRAPH)
+
+    def test_ordered_list_with_repeated_number(self):
+        text = "1. Item one\n1. Item two\n2. Item three"
+        block_type = block_to_block_type(text)
+        self.assertEqual(block_type, BlockType.PARAGRAPH)
+
+    def test_ordered_list_with_ten_items(self):
+        text = "\n".join(f"{i}. Item {i}" for i in range(1, 11))
+        block_type = block_to_block_type(text)
+        self.assertEqual(block_type, BlockType.ORDERED_LIST)
+
+    def test_ordered_list_with_extra_spaces(self):
+        text = "1.  Item one\n2.  Item two"
+        block_type = block_to_block_type(text)
+        self.assertEqual(block_type, BlockType.ORDERED_LIST)
+
+    def test_code_block_with_newlines(self):
+        code = "```\nThis is code\nwith multiple lines\n```"
+        block_type = block_to_block_type(code)
+        self.assertEqual(block_type, BlockType.CODE)
+
+    def test_mixed_unordered_and_ordered(self):
+        text = "1. Ordered item\n- Unordered item"
+        block_type = block_to_block_type(text)
+        self.assertEqual(block_type, BlockType.PARAGRAPH)
+
+    def test_quote_with_multiple_lines(self):
+        text = "> This is a quote\n> that spans lines"
+        block_type = block_to_block_type(text)
+        self.assertEqual(block_type, BlockType.QUOTE)
+
+    def test_heading_with_no_space(self):
+        heading = "#Heading without space"
+        block_type = block_to_block_type(heading)
+        self.assertEqual(block_type, BlockType.PARAGRAPH)

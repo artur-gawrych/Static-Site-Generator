@@ -23,10 +23,10 @@ class BlockType(Enum):
 
 def block_to_block_type(block):
     heading = re.search("^#{1,6}\s", block)
-    code = re.search("^`{3}.*?`{3}$", block)
+    code = re.search("^```.*?```$", block, re.DOTALL)
     quote = re.search("^>", block)
     unordered_list = re.search("^-\s", block)
-    ordered_list = re.search("^\d\.\s", block)
+    ordered_list = re.search("^\d+\.\s", block)
     if heading:
         return BlockType.HEADING
     if code:
@@ -36,6 +36,11 @@ def block_to_block_type(block):
     if unordered_list:
         return BlockType.UNORDERED_LIST
     if ordered_list:
+        splitted = block.splitlines()
+        for i, line in enumerate(splitted, start=1):
+            match = re.match("^(\d+)\.\s", line)
+            if not match or int(match.group(1)) != i:
+                return BlockType.PARAGRAPH
         return BlockType.ORDERED_LIST
     return BlockType.PARAGRAPH
     

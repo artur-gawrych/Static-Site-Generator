@@ -67,4 +67,9 @@ def main():
 
     print(heading)
 
+
+    ordered_list = "1. List item 1\n2. List item 2\n3. List item 3"
+
+    print(block_to_block_type(ordered_list))
+
 main()
