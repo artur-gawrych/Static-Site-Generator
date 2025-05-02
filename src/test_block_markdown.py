@@ -72,3 +72,28 @@ class TestBlockToBlockTypes(unittest.TestCase):
         heading_1 = "# This is Heading 1"
         block_type = block_to_block_type(heading_1)
         self.assertEqual(block_type, BlockType.HEADING)
+
+    def test_block_to_block_type_code(self):
+        code = "```This is code```"
+        block_type = block_to_block_type(code)
+        self.assertEqual(block_type, BlockType.CODE)
+    
+    def test_block_to_block_type_quote(self):
+        quote = "> This is a quote"
+        block_type = block_to_block_type(quote)
+        self.assertEqual(block_type, BlockType.QUOTE)
+    
+    def test_block_to_block_type_unorederd_list(self):
+        unordered_list = "- List item 1\n- List item 2"
+        block_type = block_to_block_type(unordered_list)
+        self.assertEqual(block_type, BlockType.UNORDERED_LIST)
+
+    def test_block_to_block_type_orederd_list(self):
+        orederd_list = "1. List item 1\n2. List item 2\n3. List item 3"
+        block_type = block_to_block_type(orederd_list)
+        self.assertEqual(block_type, BlockType.ORDERED_LIST)
+
+    def test_block_to_block_type_paragraph(self):
+        paragraph = "This is just a paragraph"
+        block_type = block_to_block_type(paragraph)
+        self.assertEqual(block_type, BlockType.PARAGRAPH)
