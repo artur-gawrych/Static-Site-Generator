@@ -1,7 +1,7 @@
 import unittest
-from block_markdown import markdown_to_blocks
+from block_markdown import markdown_to_blocks, block_to_block_type, BlockType
 
-class TestBlockMarkdown(unittest.TestCase):
+class TestMarkdownToBlocks(unittest.TestCase):
     def test_markdown_to_blocks(self):
         md = """
 This is **bolded** paragraph
@@ -66,3 +66,9 @@ Another paragraph after multiple blank lines
         blocks = markdown_to_blocks(md)
         self.assertEqual(blocks, [])
 
+
+class TestBlockToBlockTypes(unittest.TestCase):
+    def test_block_to_block_type_heading(self):
+        heading_1 = "# This is Heading 1"
+        block_type = block_to_block_type(heading_1)
+        self.assertEqual(block_type, BlockType.HEADING)
