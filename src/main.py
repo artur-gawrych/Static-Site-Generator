@@ -2,7 +2,7 @@ from textnode import *
 from htmlnode import HTMLNode
 from inline_markdown import *
 from block_markdown import *
-from markdown_html import *
+from markdown_to_html import *
 
 
 def main():
