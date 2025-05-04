@@ -2,6 +2,7 @@ from textnode import *
 from htmlnode import HTMLNode
 from inline_markdown import *
 from block_markdown import *
+from markdown_html import *
 
 
 def main():
@@ -45,31 +46,53 @@ def main():
 #    f_text = text_to_textnodes(text)
 #
 #    print(f_text)
+#
+#    print("\nTESTING BLOCK MARKDOWN\n**************************\n\n")
+#
+#    block_markdown_text = """
+#        This is **bolded** paragraph
+#
+#        This is another paragraph with _italic_ text and `code` here
+#        This is the same paragraph on a new line
+#
+#        - This is a list
+#        - with items
+#        """
+#    blocks = markdown_to_blocks(block_markdown_text)
+#
+#    print(blocks)
+#    
+#    heading_text = "# This is Heading 1"
+#
+#    heading = block_to_block_type(heading_text)
+#
+#    print(heading)
+#
+#
+#    ordered_list = "1. List item 1\n2. List item 2\n3. List item 3"
+#
+#    print(block_to_block_type(ordered_list))
+#
 
-    print("\nTESTING BLOCK MARKDOWN\n**************************\n\n")
+    md ="""
+# This is Heading 1
 
-    block_markdown_text = """
-        This is **bolded** paragraph
+## This is Heading 2
 
-        This is another paragraph with _italic_ text and `code` here
-        This is the same paragraph on a new line
+This is **bolded** paragraph
+text in a p
+tag here
 
-        - This is a list
-        - with items
-        """
-    blocks = markdown_to_blocks(block_markdown_text)
+This is another paragraph with _italic_ text and `code` here
 
-    print(blocks)
-    
-    heading_text = "# This is Heading 1"
+- This is a ulist
+- another item
 
-    heading = block_to_block_type(heading_text)
+"""
 
-    print(heading)
+    md_to_html = markdown_to_html_node(md)
 
+    print(md_to_html)
 
-    ordered_list = "1. List item 1\n2. List item 2\n3. List item 3"
-
-    print(block_to_block_type(ordered_list))
 
 main()
