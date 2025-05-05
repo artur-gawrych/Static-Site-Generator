@@ -5,15 +5,14 @@ from block_markdown import *
 
 def markdown_to_html_node(markdown):
     nodes = html_nodes(markdown)
-    html = text_to_children(nodes)
-    return html
+    for node in nodes:
+        print(node)
 
 def html_nodes(markdown):
     blocks = markdown_to_blocks(markdown)
     html_nodes = []
     for block in blocks:
         block_type = block_to_block_type(block)
-        print(block_type)
         match block_type:
             case BlockType.PARAGRAPH:
                 html_node = HTMLNode("p", block)

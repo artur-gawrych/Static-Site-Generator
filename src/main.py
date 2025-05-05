@@ -95,4 +95,11 @@ This is another paragraph with _italic_ text and `code` here
     print(md_to_html)
 
 
+    print("\n====================================\n")
+
+    html = md_to_html.to_html()
+
+    print(html)
+
+
 main()
